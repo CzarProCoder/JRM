@@ -1,0 +1,30 @@
+OBSERVATIONS/NOTES
+	
+	remove/modify loansEligibilty to DECIMAL(15,2) NOT NULL DEFAULT 0
+	You can have a field for Address in Members table
+	PhoneNo and IDNumbers are not ints but varchar(20) ( You wont be able to store data starting with zeros using ints)
+	CHANGE IdNo to IdNo VARCHAR(20) NOT NULL UNIQUE;
+	
+	*PhoneNo VARCHAR
+	ENUM FIELDS ( NOT SURE WHICH DB your using but ENUMS should contain values Eg MembershipStatus ENUM('ACTIVE','WITHDRAWN','DORMANT','SUSPENDED') NOT NULL DEFAULT 'ACTIVE')
+	
+	In table SavingsAccounts Member can have multiple accounts so... UNIQUE KEY(memId,AccountNo) ( for faster searches and joins)
+	In table Loans add column InterestRate ( maybe later when project grows)
+	Table Loans Member can have multiple Loans so PRIMARY KEY IS Loanid and add UNIQUE KEY (memid,LoanId) ( for faster searches and joins)
+	Table Documents : single member can have multiple documents so PRIMARY KEY is DocID add unique key (memid,DocID)
+	
+	
+	Savings Account Balance Shouldnt be in Members Details but in SavingsTable
+	
+	For money fields use DOUBLE(15,2) or DOUBLE(20,3) NOT NULL DEFAULT 0 instead of floats
+	
+	LastTransactionDate USE DATETIME datatype
+	In table transactions remove memid, just use AccountNo . You'll be able to do a join to Savings Account to get the memid ( reduce redundancy)
+	
+	Same for table Payments, remove memid and account no. You'll be able to get member details by joining Payments to Loans then Loans to MemberDetails
+	Table Loans Add RepaymentPeriod int not null default 1, also add InstallmentAmount DECIMAL(15,2) NOT NULL DEFAULT 0,
+	
+	As the project advances add table LoanTypes with LoanTypeID UNIQUE,MaxLoanAmount,RepaymentPeriod,InterestRate, add table Savings Type but later
+	
+	AccountStatus ENUM('ACTIVE','CLOSED','SUSPENDED','DORMANT') etc
+	

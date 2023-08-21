@@ -1,0 +1,7 @@
+MUST BE ADDED AS ENVIRONMENT VARIABLES
+
+JRM_MYSQL_USER=tester
+JRM_MYSQL_PWD=tester4923
+JRM_MYSQL_HOST=localhost
+JRM_MYSQL_DB=jrm_db
+JRM_ENV=dev			# Can be changed to test
