@@ -27,4 +27,8 @@ OBSERVATIONS/NOTES
 	As the project advances add table LoanTypes with LoanTypeID UNIQUE,MaxLoanAmount,RepaymentPeriod,InterestRate, add table Savings Type but later
 	
 	AccountStatus ENUM('ACTIVE','CLOSED','SUSPENDED','DORMANT') etc
+
+
+Latest Kikuyu Gospel Mix 6 2023 (Latest Kigooco Mix ) - Dj Kevin Thee Minister
+
 	
