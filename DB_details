@@ -1,7 +1,13 @@
 MUST BE ADDED AS ENVIRONMENT VARIABLES
 
-JRM_MYSQL_USER=tester
-JRM_MYSQL_PWD=tester4923
+JRM_MYSQL_USER=Julius
+JRM_MYSQL_PWD=Lyonec_2023
 JRM_MYSQL_HOST=localhost
 JRM_MYSQL_DB=jrm_db
 JRM_ENV=dev			# Can be changed to test
+
+
+
+JRM_MYSQL_USER=Julius JRM_MYSQL_PWD=Lyonec_2023 JRM_MYSQL_HOST=localhost JRM_MYSQL_DB=jrm_db JRM_ENV=dev python3 test.py
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'czar2847';

@@ -4,26 +4,29 @@
 Module defining the type of storage in use
 '''
 
-
-from models.member_details import MemberDetails
-from savings_accounts import SavingsAccounts
-from models.loans import Loans
-from models.payments import Payments
-from models.transactions import Transactions
-from models.documents import Documents
+import models
+# from models.members import Members
+# from models.savings_accounts import SavingsAccounts
+# from models.loans import Loans
+# from models.payments import Payments
+# from models.transactions import Transactions
+# from models.documents import Documents
+from models.base_models import Base
 from os import getenv
+import sqlalchemy
 from sqlalchemy import create_engine, ForeignKey, Column
 from sqlalchemy import String, Integer, CHAR, DateTime, Numeric
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import create_engine
 
 
-classes = {"member_details": MemberDetails,
-           "savings_accounts": SavingsAccounts,
-           "documents": Documents,
-           "loans": Loans,
-           "payments": Payments,
-           "transactions": Transactions}
+# classes = {"members": Members,
+#            "savings_accounts": SavingsAccounts,
+#            "documents": Documents,
+#            "loans": Loans,
+#            "payments": Payments,
+#            "transactions": Transactions}
 
 class DBStorage:
     '''
@@ -31,16 +34,24 @@ class DBStorage:
     __engine = None
     __session = None
 
-    def __init__(self, ):
+    def __init__(self):
        JRM_MYSQL_USER = getenv('JRM_MYSQL_USER')
        JRM_MYSQL_PWD = getenv('JRM_MYSQL_PWD')
        JRM_MYSQL_HOST = getenv('JRM_MYSQL_HOST')
        JRM_MYSQL_DB = getenv('JRM_MYSQL_DB')
-       JRM_ENV = getenv('JRM_ENV')
-       self.__engine = create_engine(f'''mysql+mysqldb://
-                                     {JRM_MYSQL_USER}:{JRM_MYSQL_PWD}@
-                                     {JRM_MYSQL_HOST}/{JRM_MYSQL_DB}''')
+       self.__engine = create_engine(f'mysql+mysqldb://{JRM_MYSQL_USER}:{JRM_MYSQL_PWD}@{JRM_MYSQL_HOST}/{JRM_MYSQL_DB}')
+       
+       Sess_factory = sessionmaker(bind=self.__engine)
+       Session = scoped_session(Sess_factory)
+       self.__session = Session
 
+       Base.metadata.create_all(self.__engine)
+
+
+
+
+    def all(self, obj):
+        pass
 
     def new(self, obj):
         '''Add an object to the current DB Session'''
@@ -55,7 +66,7 @@ class DBStorage:
     def delete(self, obj=None):
         '''Delete an object from current database session if obj is not none'''
         if obj is not None:
-            self.__session.delete(obj)
+            self.session.delete(obj)
 
 
     def reload(self):
