@@ -2,17 +2,15 @@
 '''
 Modules containing class Member
 '''
-import models
 from datetime import datetime, date
-from models.base_models import BaseModel, Base
+from models.base_model import BaseModel, Base
 from sqlalchemy import create_engine, ForeignKey, Column
 from sqlalchemy import VARCHAR, String, Integer, CHAR, DateTime, Numeric
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.types import Date
 from sqlalchemy.dialects.mysql import ENUM
 from models.engine.db_storage import DBStorage
 
-
+time = "%Y-%m-%dT%H:%M:%S.%f"
 
 class Members(BaseModel, Base):
     '''
@@ -30,7 +28,7 @@ class Members(BaseModel, Base):
     email = Column("email", VARCHAR(45))
     phone = Column("phone", VARCHAR(45), nullable=False)         # String so that it can accomodate "0" at the beginning
     membership_status = Column("membership_status", ENUM('active','withdrawn','dormant','suspended'))
-    loan_Eligibility= Column("loan_eligibility", Numeric(precision=15, scale=2), default=0.00)
+    loan_eligibility= Column("loan_eligibility", Numeric(precision=15, scale=2), default=0.00)
 
 
     def __init__(self, member_id, first_name, second_name, last_name,
@@ -42,9 +40,9 @@ class Members(BaseModel, Base):
         if registration_date is None:
             self.registration_date = datetime.now()
         else:
-            self.registration_date = registration_date
+            self.registration_date = datetime.strptime(registration_date, time)
 
-        updated_at = registration_date
+        updated_at = self.registration_date
 
         super().__init__(member_id, registration_date, updated_at)
 

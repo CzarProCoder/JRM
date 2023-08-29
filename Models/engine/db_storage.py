@@ -11,7 +11,7 @@ import models
 # from models.payments import Payments
 # from models.transactions import Transactions
 # from models.documents import Documents
-from models.base_models import Base
+from models.base_model import Base
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine, ForeignKey, Column
@@ -41,11 +41,10 @@ class DBStorage:
        JRM_MYSQL_DB = getenv('JRM_MYSQL_DB')
        self.__engine = create_engine(f'mysql+mysqldb://{JRM_MYSQL_USER}:{JRM_MYSQL_PWD}@{JRM_MYSQL_HOST}/{JRM_MYSQL_DB}')
        
-       Sess_factory = sessionmaker(bind=self.__engine)
-       Session = scoped_session(Sess_factory)
-       self.__session = Session
-
        Base.metadata.create_all(self.__engine)
+       sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+       Session = scoped_session(sess_factory)
+       self.__session = Session
 
 
 
@@ -84,3 +83,4 @@ class DBStorage:
         Return the object based on class name and its ID
         or None id not found
         '''
+        pass

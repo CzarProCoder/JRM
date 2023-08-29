@@ -10,31 +10,36 @@ from sqlalchemy import Column, VARCHAR, String, DateTime
 
 Base = declarative_base()
 
+time = "%Y-%m-%dT%H:%M:%S.%f"
 
 class BaseModel:
     '''Base class from which all other classes inherit from'''
+
     id = Column(VARCHAR(45), primary_key=True)
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now)
 
-    def __init__(self, id, created_at, updated_at):
+    def __init__(self, id: str, created_at: datetime, updated_at: datetime = None):
         self.id = id
-        self.created_at = created_at
+        if created_at is None:
+            self.created_at = datetime.now()
+        else:
+            self.created_at = datetime.strptime(created_at, time)
         if updated_at is None:
-            self.updated_at = datetime.now
+            self.updated_at = datetime.now()
         else:
             self.updated_at = updated_at
 
-    def __str__(self):
+    def __str__(self):  
         return f"[{self.__class__.__name__}] ({self.id}) {self.__repr__}"
 
     def save(self):
         self.updated_at = datetime.now()
-        models.Storage.new(self)
-        models.Storage.save()
-    
-    def close(self):
-       models.Storage.close()
+        models.storage.new(self)
+        models.storage.save()
 
     def delete(self):
-        models.Storage.delete(self)
+        models.storage.delete(self)
+
+    def close(self):
+       models.storage.close()
