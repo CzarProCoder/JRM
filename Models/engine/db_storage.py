@@ -18,15 +18,14 @@ from sqlalchemy import create_engine, ForeignKey, Column
 from sqlalchemy import String, Integer, CHAR, DateTime, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlalchemy import create_engine
 
 
-# classes = {"members": Members,
-#            "savings_accounts": SavingsAccounts,
-#            "documents": Documents,
-#            "loans": Loans,
-#            "payments": Payments,
-#            "transactions": Transactions}
+# classes = {"Members": Members,
+#            "SavingsAccounts": SavingsAccounts,
+#            "Documents": Documents,
+#            "Loans": Loans,
+#            "Payments": Payments,
+#            "Transactions": Transactions}
 
 class DBStorage:
     '''
@@ -39,18 +38,23 @@ class DBStorage:
        JRM_MYSQL_PWD = getenv('JRM_MYSQL_PWD')
        JRM_MYSQL_HOST = getenv('JRM_MYSQL_HOST')
        JRM_MYSQL_DB = getenv('JRM_MYSQL_DB')
-       self.__engine = create_engine(f'mysql+mysqldb://{JRM_MYSQL_USER}:{JRM_MYSQL_PWD}@{JRM_MYSQL_HOST}/{JRM_MYSQL_DB}')
+       self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+                                      format(JRM_MYSQL_USER,
+                                             JRM_MYSQL_PWD,
+                                             JRM_MYSQL_HOST,
+                                             JRM_MYSQL_DB))
        
-       Base.metadata.create_all(self.__engine)
-       sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-       Session = scoped_session(sess_factory)
-       self.__session = Session
-
-
+    def reload(self):
+        """reloads data from the database"""
+        Base.metadata.create_all(self.__engine)
+        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sess_factory)
+        self.__session = Session
 
 
     def all(self, obj):
         pass
+
 
     def new(self, obj):
         '''Add an object to the current DB Session'''
@@ -66,12 +70,6 @@ class DBStorage:
         '''Delete an object from current database session if obj is not none'''
         if obj is not None:
             self.session.delete(obj)
-
-
-    def reload(self):
-        '''
-        '''
-        pass
 
 
     def close(self):
