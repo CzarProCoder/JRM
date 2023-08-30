@@ -5,12 +5,12 @@ Module defining the type of storage in use
 '''
 
 import models
-# from models.members import Members
-# from models.savings_accounts import SavingsAccounts
-# from models.loans import Loans
-# from models.payments import Payments
-# from models.transactions import Transactions
-# from models.documents import Documents
+from models.members import Members
+from models.savings_accounts import SavingsAccounts
+from models.loans import Loans
+from models.payments import Payments
+from models.transactions import Transactions
+from models.documents import Documents
 from models.base_model import Base
 from os import getenv
 import sqlalchemy
@@ -20,15 +20,16 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
-# classes = {"Members": Members,
-#            "SavingsAccounts": SavingsAccounts,
-#            "Documents": Documents,
-#            "Loans": Loans,
-#            "Payments": Payments,
-#            "Transactions": Transactions}
+classes = {"Members": Members,
+           "SavingsAccounts": SavingsAccounts,
+           "Documents": Documents,
+           "Loans": Loans,
+           "Payments": Payments,
+           "Transactions": Transactions}
 
 class DBStorage:
     '''
+    Class defining the database storage setup and configurations
     '''
     __engine = None
     __session = None
@@ -52,8 +53,15 @@ class DBStorage:
         self.__session = Session
 
 
-    def all(self, obj):
-        pass
+    def all(self, cls):
+        new_dict = {}
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return (new_dict)
 
 
     def new(self, obj):
@@ -81,4 +89,10 @@ class DBStorage:
         Return the object based on class name and its ID
         or None id not found
         '''
-        pass
+        if cls not in classes.values():
+            return None
+
+        all_cls = models.storage.all(cls)
+        for value in all_cls.values():
+            if (value.id == id):
+                return value

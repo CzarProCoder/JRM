@@ -2,14 +2,15 @@
 '''
 Modules containing class Member
 '''
-from datetime import datetime, date
+from datetime import datetime
 from models.base_model import BaseModel, Base
-from sqlalchemy import create_engine, ForeignKey, Column
-from sqlalchemy import VARCHAR, Integer, CHAR, DateTime, Numeric
+from sqlalchemy import create_engine, Column
+from sqlalchemy import VARCHAR, Numeric
 from sqlalchemy.types import Date
 from sqlalchemy.dialects.mysql import ENUM
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
+date_format = "%Y, %m, %d"
 
 class Members(BaseModel, Base):
     '''
@@ -23,6 +24,7 @@ class Members(BaseModel, Base):
     national_id = Column(VARCHAR(20), unique=True)        # VARCHAR so that it can accomodate "0" at the beginning
     kra_pin = Column(VARCHAR(45), unique=True)
     dob = Column(Date)
+    address = Column(VARCHAR(200))
     gender = Column(ENUM('M', 'F'))
     email = Column(VARCHAR(45))
     phone = Column(VARCHAR(45), nullable=False)         # VARCHAR so that it can accomodate "0" at the beginning
@@ -31,10 +33,8 @@ class Members(BaseModel, Base):
 
 
     def __init__(self, id, first_name, second_name, last_name,
-                 national_id, kra_pin, dob, gender, created_at=datetime.now(),
+                 national_id, kra_pin, dob, address, gender, created_at=datetime.now(),
                  email=None, phone=None, membership_status=None, loan_eligibility=0.0):
-        
-        date_format = "%Y, %m, %d"
 
         if created_at is None:
             self.created_at = datetime.now()
@@ -51,13 +51,14 @@ class Members(BaseModel, Base):
         self.national_id = national_id
         self.kra_pin = kra_pin
         self.dob = datetime.strptime(dob, date_format).date()
+        self.address = address
         self.gender = gender
         self.email = email
         self.phone = phone
         self.membership_status = membership_status
         self.loan_eligibility = loan_eligibility
 
-    def __repr__(self):
+    def __str__(self):
         '''
         Returns a representation of a member
         '''
@@ -67,6 +68,7 @@ class Members(BaseModel, Base):
                 National_ID: {self.national_id} \n
                 KRA_Pin: {self.kra_pin} \n
                 Date_of_Birth: {self.dob} \n
+                Address: {self.address} \n
                 Gender: {self.gender} \n
                 Email: {self.email} \n
                 Phone: {self.phone} \n
