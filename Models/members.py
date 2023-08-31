@@ -5,12 +5,14 @@ Modules containing class Member
 from datetime import datetime
 from models.base_model import BaseModel, Base
 from sqlalchemy import create_engine, Column
+from sqlalchemy.orm import relationship
 from sqlalchemy import VARCHAR, Numeric
 from sqlalchemy.types import Date
 from sqlalchemy.dialects.mysql import ENUM
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
 date_format = "%Y, %m, %d"
+
 
 class Members(BaseModel, Base):
     '''
@@ -21,20 +23,23 @@ class Members(BaseModel, Base):
     first_name = Column(VARCHAR(45), nullable=False)
     second_name = Column(VARCHAR(45), nullable=False)
     last_name = Column(VARCHAR(45), nullable=False)
-    national_id = Column(VARCHAR(20), unique=True)        # VARCHAR so that it can accomodate "0" at the beginning
+    national_id = Column(VARCHAR(20), unique=True)
     kra_pin = Column(VARCHAR(45), unique=True)
     dob = Column(Date)
     address = Column(VARCHAR(200))
     gender = Column(ENUM('M', 'F'))
     email = Column(VARCHAR(45))
-    phone = Column(VARCHAR(45), nullable=False)         # VARCHAR so that it can accomodate "0" at the beginning
-    membership_status = Column(ENUM('active','withdrawn','dormant','suspended'))
-    loan_eligibility= Column(Numeric(precision=15, scale=2), default=0.00)
+    phone = Column(VARCHAR(45), nullable=False)
+    membership_status = Column(ENUM('active', 'withdrawn',
+                                    'dormant', 'suspended'))
+    loan_eligibility = Column(Numeric(precision=15, scale=2), default=0.00)
 
+    loans = relationship("loans", back_populates="members")
 
     def __init__(self, id, first_name, second_name, last_name,
-                 national_id, kra_pin, dob, address, gender, created_at=datetime.now(),
-                 email=None, phone=None, membership_status=None, loan_eligibility=0.0):
+                 national_id, kra_pin, dob, address, gender,
+                 created_at=datetime.now(), email=None, phone=None,
+                 membership_status=None, loan_eligibility=0.0):
 
         if created_at is None:
             self.created_at = datetime.now()
@@ -60,7 +65,7 @@ class Members(BaseModel, Base):
 
     def __str__(self):
         '''
-        Returns a representation of a member
+        Returns a string representation of a member
         '''
         return (f"""
                 Member_id: {self.id} \n

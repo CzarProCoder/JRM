@@ -6,24 +6,14 @@ Module containng the base class from which all other classes inherit from
 import models
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, VARCHAR, String, DateTime
+from sqlalchemy import Column, VARCHAR, DateTime
 from os import getenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
-# JRM_MYSQL_USER = getenv('JRM_MYSQL_USER')
-# JRM_MYSQL_PWD = getenv('JRM_MYSQL_PWD')
-# JRM_MYSQL_HOST = getenv('JRM_MYSQL_HOST')
-# JRM_MYSQL_DB = getenv('JRM_MYSQL_DB')
-# engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-#                                 format(JRM_MYSQL_USER,
-#                                         JRM_MYSQL_PWD,
-#                                         JRM_MYSQL_HOST,
-#                                         JRM_MYSQL_DB))
 
 class BaseModel:
     '''Base class from which all other classes inherit from'''
@@ -32,7 +22,7 @@ class BaseModel:
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now)
 
-    def __init__(self, id, created_at, updated_at = None):
+    def __init__(self, id, created_at, updated_at=None):
         self.id = id
         if created_at is None:
             self.created_at = datetime.now()
@@ -43,7 +33,7 @@ class BaseModel:
         else:
             self.updated_at = updated_at
 
-    def __str__(self):  
+    def __str__(self):
         return f"[{self.__class__.__name__}] ({self.id}) {self.__repr__}"
 
     def reload(self):
@@ -59,4 +49,4 @@ class BaseModel:
         models.storage.delete(self)
 
     def close(self):
-       models.storage.close()
+        models.storage.close()
