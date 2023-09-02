@@ -6,9 +6,8 @@ Module defining the type of storage in use
 
 import models
 from models.members import Members
-from models.savings_accounts import SavingsAccounts
+from models.accounts import Accounts
 from models.loans import Loans
-from models.payments import Payments
 from models.transactions import Transactions
 from models.documents import Documents
 from models.base_model import Base
@@ -21,10 +20,9 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 classes = {"Members": Members,
-           "SavingsAccounts": SavingsAccounts,
+           "Accounts": Accounts,
            "Documents": Documents,
            "Loans": Loans,
-           "Payments": Payments,
            "Transactions": Transactions}
 
 class DBStorage:

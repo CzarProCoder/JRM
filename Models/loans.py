@@ -4,8 +4,7 @@ Module defining class Loans
 '''
 from datetime import datetime
 from models.base_model import BaseModel, Base
-from sqlalchemy import create_engine, Column
-from sqlalchemy import VARCHAR, Numeric, Integer, ForeignKey
+from sqlalchemy import VARCHAR, Numeric, ForeignKey, Column
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import Date
 from sqlalchemy.dialects.mysql import ENUM
@@ -23,18 +22,17 @@ class Loans(BaseModel, Base):
     loan_type = Column(ENUM('emergency', 'personal',
                             'education', 'development'))
     interest_rate = Column(Numeric(precision=4, scale=2), nullable=False)
+    installment_amount = Column(Numeric(precision=15, scale=2))
     loan_status = Column(ENUM('pending', 'approved', 'rejected'))
     due_date = Column(Date)
     guarantor_id = Column(VARCHAR(20))
     member_id = Column(VARCHAR(45), ForeignKey("members.id"))
 
-    members = relationship("members", back_populates="loans")
-
-
+    members = relationship("Members", back_populates="loans")
 
     def __init__(self, id, loan_amount, loan_balance, loan_type,
-                 interest_rate, loan_status, created_at,
-                 due_date, guarantor_id):
+                 interest_rate, installment_amount, loan_status, created_at,
+                 due_date, guarantor_id, member_id):
 
         if created_at is None:
             self.created_at = datetime.now()
@@ -49,9 +47,11 @@ class Loans(BaseModel, Base):
         self.loan_balance = loan_balance
         self.loan_type = loan_type
         self.interest_rate = interest_rate
+        self.installment_amount = installment_amount
         self.loan_status = loan_status
         self.due_date = datetime.strptime(due_date, date_format).date()
         self.guarantor_id = guarantor_id
+        self.member_id = member_id
 
     def __str__(self):
         '''

@@ -34,7 +34,8 @@ class Members(BaseModel, Base):
                                     'dormant', 'suspended'))
     loan_eligibility = Column(Numeric(precision=15, scale=2), default=0.00)
 
-    loans = relationship("loans", back_populates="members")
+    loans = relationship("Loans", back_populates="members")
+    accounts = relationship("Accounts", back_populates="members")
 
     def __init__(self, id, first_name, second_name, last_name,
                  national_id, kra_pin, dob, address, gender,
