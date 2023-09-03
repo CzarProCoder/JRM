@@ -19,11 +19,11 @@ class Loans(BaseModel, Base):
 
     loan_amount = Column(Numeric(precision=15, scale=2), nullable=False)
     loan_balance = Column(Numeric(precision=15, scale=2))
-    loan_type = Column(ENUM('emergency', 'personal',
-                            'education', 'development'))
+    loan_type = Column(ENUM('Emergency', 'Personal',
+                            'Education', 'Development'))
     interest_rate = Column(Numeric(precision=4, scale=2), nullable=False)
     installment_amount = Column(Numeric(precision=15, scale=2))
-    loan_status = Column(ENUM('pending', 'approved', 'rejected'))
+    loan_status = Column(ENUM('Pending', 'Approved', 'Rejected'))
     due_date = Column(Date)
     guarantor_id = Column(VARCHAR(20))
     member_id = Column(VARCHAR(45), ForeignKey("members.id"))
@@ -58,13 +58,13 @@ class Loans(BaseModel, Base):
         Returns a string representation of loans
         '''
         return (f"""
-        Loan ID: {self.id} \n
-        Loan Amount: {self.loan_amount} \n
-        Loan Balance: {self.loan_balance} \n
-        Loan Type: {self.loan_type} \n
+              Loan ID: {self.id} \n
+          Loan Amount: {self.loan_amount} \n
+         Loan Balance: {self.loan_balance} \n
+            Loan Type: {self.loan_type} \n
         Interest Rate: {self.interest_rate} \n
-        Loan Status: {self.loan_status} \n
-        Due Date: {self.due_date} \n
-        Guarantor ID: {self.guarantor_id} \n
-        Issued_on: {self.created_at} \n
-        Updated_at: {self.updated_at} \n""")
+          Loan Status: {self.loan_status} \n
+             Due Date: {self.due_date} \n
+         Guarantor ID: {self.guarantor_id} \n
+            Issued_on: {self.created_at} \n
+           Updated_at: {self.updated_at} \n""")

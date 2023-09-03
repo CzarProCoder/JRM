@@ -30,8 +30,8 @@ class Members(BaseModel, Base):
     gender = Column(ENUM('M', 'F'))
     email = Column(VARCHAR(45))
     phone = Column(VARCHAR(45), nullable=False)
-    membership_status = Column(ENUM('active', 'withdrawn',
-                                    'dormant', 'suspended'))
+    membership_status = Column(ENUM('Active', 'Withdrawn',
+                                    'Dormant', 'Suspended'))
     loan_eligibility = Column(Numeric(precision=15, scale=2), default=0.00)
 
     loans = relationship("Loans", back_populates="members")
@@ -68,17 +68,18 @@ class Members(BaseModel, Base):
         '''
         Returns a string representation of a member
         '''
+        full_name = f"{self.first_name} {self.second_name} {self.last_name}"
         return (f"""
-                Member_id: {self.id} \n
-                Name: {self.first_name} {self.second_name} {self.last_name} \n
-                National_ID: {self.national_id} \n
-                KRA_Pin: {self.kra_pin} \n
-                Date_of_Birth: {self.dob} \n
-                Address: {self.address} \n
-                Gender: {self.gender} \n
-                Email: {self.email} \n
-                Phone: {self.phone} \n
+                        Member_id: {self.id} \n
+                             Name: {full_name}
+                      National_ID: {self.national_id} \n
+                          KRA_Pin: {self.kra_pin} \n
+                    Date_of_Birth: {self.dob} \n
+                          Address: {self.address} \n
+                           Gender: {self.gender} \n
+                            Email: {self.email} \n
+                            Phone: {self.phone} \n
                 Membership_status: {self.membership_status} \n
-                loan_eligibility: {self.loan_eligibility} \n
-                created_at: {self.created_at} \n
-                Updated_at: {self.updated_at} \n""")
+                 loan_eligibility: {self.loan_eligibility} \n
+                       created_at: {self.created_at} \n
+                       Updated_at: {self.updated_at} \n""")

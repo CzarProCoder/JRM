@@ -16,12 +16,13 @@ class Accounts(BaseModel, Base):
     """
     __tablename__ = "accounts"
 
-    account_type = Column(ENUM('savings', 'shares'))
+    account_type = Column(ENUM('Savings', 'Shares'))
     balance = Column(Numeric(precision=15, scale=2))
-    account_status = Column(ENUM('active', 'closed', 'suspended', 'dormant'))
+    account_status = Column(ENUM('Active', 'Closed', 'Suspended', 'Dormant'))
     member_id = Column(VARCHAR(45), ForeignKey("members.id"))
 
     members = relationship("Members", back_populates="accounts")
+    transactions = relationship("Transactions", back_populates="accounts")
 
     def __init__(self, id, member_id, account_type, balance,
                  created_at, account_status):
@@ -58,10 +59,10 @@ class Accounts(BaseModel, Base):
         Returns a string representation of loans
         '''
         return (f"""
-        account ID: {self.id} \n
-        member Id: {self.member_id} \n
-        Account Type: {self.account_type} \n
+             Account ID: {self.id} \n
+              Member Id: {self.member_id} \n
+           Account Type: {self.account_type} \n
         Account Balance: {self.balance} \n
-        Account Status: {self.account_status} \n
-        Created on: {self.created_at} \n
-        Updated_at: {self.updated_at} \n""")
+         Account Status: {self.account_status} \n
+             Created on: {self.created_at} \n
+             Updated_at: {self.updated_at} \n""")

@@ -5,6 +5,7 @@ Test file containing test data
 from models.members import Members
 from models.loans import Loans
 from models.accounts import Accounts
+from models.transactions import Transactions
 import models
 from sqlalchemy.exc import IntegrityError
 import re
@@ -21,7 +22,7 @@ Julius = Members(id=478573,
                  created_at=None,
                  email="jyyyyxxxx987@gmail.com",
                  phone="+25412345677",
-                 membership_status="active",
+                 membership_status="Active",
                  loan_eligibility=500000.00)
 
 Ambrose = Members(id=478575,
@@ -36,45 +37,73 @@ Ambrose = Members(id=478575,
                   created_at=None,
                   email="affddccccc76@gmail.com",
                   phone="+254000000111",
-                  membership_status="active",
+                  membership_status="Active",
                   loan_eligibility=760050.25)
 
 Julius_acc = Accounts(id='0847858434323',
                       member_id=478573,
-                      account_type="savings",
-                      balance=350000.00,
+                      account_type="Savings",
+                      balance=350030.00,
                       created_at=None,
-                      account_status="active")
+                      account_status="Active")
 
 Julius_acc2 = Accounts(id='0847858434324',
                       member_id=478573,
-                      account_type="shares",
-                      balance=350000.00,
+                      account_type="Shares",
+                      balance=22043.00,
                       created_at=None,
-                      account_status="active")
+                      account_status="Active")
 
 Ambrose_acc = Accounts(id='0047858474787',
                       member_id=478575,
-                      account_type="savings",
-                      balance=350000.00,
+                      account_type="Savings",
+                      balance=430500.00,
                       created_at=None,
-                      account_status="active")
+                      account_status="Active")
+
 
 Ambrose_acc2 = Accounts(id='0047858474788',
                       member_id=478575,
-                      account_type="shares",
-                      balance=350000.00,
+                      account_type="Shares",
+                      balance=143890.00,
                       created_at=None,
-                      account_status="active")
+                      account_status="Active")
 
+julius_transaction1 = Transactions(id=38758485,
+                                   created_at=None,
+                                   account_no="0847858434323",
+                                   transaction_type="Deposit",
+                                   amount=50000.00,
+                                   description="Monthly savings for Oct")
+
+julius_transaction2 = Transactions(id=38758486,
+                                   created_at=None,
+                                   account_no="0847858434323",
+                                   transaction_type="Withdrawal",
+                                   amount=10000.00,
+                                   description="Personal Expense")
+
+Ambrose_transaction1 = Transactions(id=38758487,
+                                   created_at=None,
+                                   account_no="0047858474787",
+                                   transaction_type="Deposit",
+                                   amount=60000.00,
+                                   description="")
+
+Ambrose_transaction2 = Transactions(id=38758488,
+                                   created_at=None,
+                                   account_no="0047858474787",
+                                   transaction_type="Withdrawal",
+                                   amount=10000.00,
+                                   description="")
 
 Loan1 = Loans(id=8477584,
               loan_amount=250740,
               loan_balance=250740,
-              loan_type='personal',
+              loan_type='Personal',
               interest_rate=0.12,
               installment_amount = 30000.00,
-              loan_status='pending',
+              loan_status='Pending',
               created_at=None,
               due_date="2024, 8, 13",
               guarantor_id=38784758,
@@ -83,10 +112,10 @@ Loan1 = Loans(id=8477584,
 loan2 = Loans(id=8477585,
               loan_amount=320453,
               loan_balance=320453,
-              loan_type='development',
+              loan_type='Development',
               interest_rate=0.12,
               installment_amount = 32000.00,
-              loan_status='approved',
+              loan_status='Approved',
               created_at=None,
               due_date="2025, 8, 13",
               guarantor_id=3848754,
@@ -101,7 +130,7 @@ def extract_class_name(object_class):
         class_name = match.group(2)
         # Make the first letter of the class name uppercase
         class_name = class_name.capitalize()
-        return class_name
+        return (class_name[:-1])
     else:
         return None
 
@@ -126,6 +155,11 @@ add_obj(Julius_acc)
 add_obj(Julius_acc2)
 add_obj(Ambrose_acc)
 add_obj(Ambrose_acc2)
+
+add_obj(julius_transaction1)
+add_obj(julius_transaction2)
+add_obj(Ambrose_transaction1)
+add_obj(Ambrose_transaction2)
 
 add_obj(Loan1)
 add_obj(loan2)
