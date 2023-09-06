@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRM dashboard</title>
+</head>
+<body>
+    <h1>This is JRM dashboard</h1>
+    <H1>Members</H1>
+    <UL>
+    {% for member in members %}
+        <LI>{{ member.id }}: <B>{{ member.first_name }}</B></LI>
+    {% endfor %}
+    </UL>
+</body>
+</html>

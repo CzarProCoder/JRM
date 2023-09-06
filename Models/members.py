@@ -71,7 +71,7 @@ class Members(BaseModel, Base):
         full_name = f"{self.first_name} {self.second_name} {self.last_name}"
         return (f"""
                         Member_id: {self.id} \n
-                             Name: {full_name}
+                             Name: {full_name} \n
                       National_ID: {self.national_id} \n
                           KRA_Pin: {self.kra_pin} \n
                     Date_of_Birth: {self.dob} \n

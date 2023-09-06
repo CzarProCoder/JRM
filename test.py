@@ -6,6 +6,7 @@ from models.members import Members
 from models.loans import Loans
 from models.accounts import Accounts
 from models.transactions import Transactions
+from models.documents import Documents
 import models
 from sqlalchemy.exc import IntegrityError
 import re
@@ -39,6 +40,27 @@ Ambrose = Members(id=478575,
                   phone="+254000000111",
                   membership_status="Active",
                   loan_eligibility=760050.25)
+
+Julius_ID_Copy = Documents(id = 47563884,
+                           doc_type="ID",
+                           path="models/files/",
+                           description= "ID For Julius K",
+                           member_id=478573,
+                           created_at=None)
+
+Julius_KRA_Copy = Documents(id = 47563885,
+                            doc_type="KRA_Pin",
+                            path="models/files/",
+                            description="Julius Kinyua KRA_Pin",
+                            member_id=478573,
+                            created_at=None)
+
+Julius_Passport = Documents(id = 47563886,
+                            doc_type="Passport",
+                            path="models/files/",
+                            description="Passport Photo",
+                            member_id=478573,
+                            created_at=None)
 
 Julius_acc = Accounts(id='0847858434323',
                       member_id=478573,
@@ -140,16 +162,18 @@ def add_obj(obj):
         obj.save()
         obj.close()
         print(f"{obj_class} ID:{obj.id} has been added successfully. \n")
-        print ("Confirm the details below: ")
-        print(obj)
+        # print ("Confirm the details below: ")
+        # print(obj)
     except IntegrityError as e:
         print(f"Duplicate Entry! {obj_class}.id and unique must not have duplicates")
 
 
-models.storage.reload()
-
 add_obj(Julius)
 add_obj(Ambrose)
+
+add_obj(Julius_ID_Copy)
+add_obj(Julius_KRA_Copy)
+add_obj(Julius_Passport)
 
 add_obj(Julius_acc)
 add_obj(Julius_acc2)
@@ -163,3 +187,9 @@ add_obj(Ambrose_transaction2)
 
 add_obj(Loan1)
 add_obj(loan2)
+
+print(models.storage.all(Members))
+print(models.storage.all(Documents))
+print(models.storage.all(Accounts))
+print(models.storage.all(Transactions))
+print(models.storage.all(Loans))
