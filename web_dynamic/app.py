@@ -34,7 +34,6 @@ def dashboard():
 @app.route("/dashboard/members", strict_slashes=False)
 def members():
     members = storage.all(Members)
-    return members
     return render_template('dashboard/members.html', members=members)
 
 

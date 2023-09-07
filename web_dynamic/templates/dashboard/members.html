@@ -9,8 +9,9 @@
     <h1>This is JRM dashboard</h1>
     <H1>Members</H1>
     <UL>
-    {% for member in members %}
-        <LI>{{ member.id }}: <B>{{ member.first_name }}</B></LI>
+    {% for member in members.values() %}
+        <LI>{{ member.id }}: <B>{{ member.first_name +" " + member.last_name }}: 
+            {{ member.national_id }}: {{ member.dob }} {{ member.email }}</B></LI>
     {% endfor %}
     </UL>
 </body>
