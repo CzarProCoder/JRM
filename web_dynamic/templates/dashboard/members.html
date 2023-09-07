@@ -1,18 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JRM dashboard</title>
-</head>
-<body>
-    <h1>This is JRM dashboard</h1>
-    <H1>Members</H1>
-    <UL>
-    {% for member in members.values() %}
-        <LI>{{ member.id }}: <B>{{ member.first_name +" " + member.last_name }}: 
-            {{ member.national_id }}: {{ member.dob }} {{ member.email }}</B></LI>
-    {% endfor %}
-    </UL>
-</body>
-</html>
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}
+JRM SACCO
+{% endblock %}
+
+{% block body %}
+    <h1>JRM Sacco</h1>
+    <h1>Members</h1>
+    <table class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for member in members.values() %}
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                <td>{{ member.id }}</td>
+                <td>{{ member.first_name }} {{ member.last_name }}</td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    <!-- <ul>
+        {% for member in members.values() %}
+            <li>{{ member.id }}: <b>{{ member.first_name }} {{ member.last_name }}:
+                {{ member.national_id }}: {{ member.dob }} {{ member.email }}</b></li>
+        {% endfor %}
+    </ul> -->
+{% endblock %}
