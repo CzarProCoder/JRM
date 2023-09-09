@@ -7,7 +7,7 @@ from models.loans import Loans
 from models.accounts import Accounts
 from models.transactions import Transactions
 from models.documents import Documents
-import models
+from models import storage
 from sqlalchemy.exc import IntegrityError
 import re
 
@@ -188,8 +188,8 @@ add_obj(Ambrose_transaction2)
 add_obj(Loan1)
 add_obj(loan2)
 
-print(models.storage.all(Members))
-print(models.storage.all(Documents))
-print(models.storage.all(Accounts))
-print(models.storage.all(Transactions))
-print(models.storage.all(Loans))
+# print(storage.all(Members))
+# print(storage.all(Documents))
+# print(storage.all(Accounts))
+# print(storage.all(Transactions))
+# print(storage.all(Loans))

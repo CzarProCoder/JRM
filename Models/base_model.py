@@ -8,6 +8,7 @@ from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, VARCHAR, DateTime
 from os import getenv
+import json
 from sqlalchemy import create_engine
 
 Base = declarative_base()
@@ -33,9 +34,6 @@ class BaseModel:
         else:
             self.updated_at = updated_at
 
-    def __str__(self):
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__repr__}"
-
     def reload(self):
         models.storage.reload()
 
@@ -47,6 +45,27 @@ class BaseModel:
 
     def delete(self):
         models.storage.delete(self)
+    
+    def get_attributes(self):
+        # Define a list of attributes to exclude
+        excluded_attributes = [
+            '_sa_class_manager',
+            '_sa_instance_state',
+            '_sa_registry',
+            'metadata',
+            'registry',
+            'members',  # Example attribute, add more if needed
+        ]
+
+        # Create a dictionary to store the filtered attributes
+        attributes_dict = {}
+
+        # Iterate through the object's attributes
+        for key, value in self.__dict__.items():
+            if key not in excluded_attributes:
+                attributes_dict[key] = value
+
+        return attributes_dict
 
     def close(self):
         models.storage.close()

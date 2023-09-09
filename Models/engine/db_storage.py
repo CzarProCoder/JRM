@@ -25,6 +25,7 @@ classes = {"Members": Members,
            "Loans": Loans,
            "Transactions": Transactions}
 
+
 class DBStorage:
     '''
     Class defining the database storage setup and configurations
@@ -49,8 +50,7 @@ class DBStorage:
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sess_factory)
         self.__session = Session
-
-
+    
     def all(self, cls):
         new_dict = {}
         for clss in classes:
@@ -58,7 +58,7 @@ class DBStorage:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
                     key = obj.id
-                    new_dict[key] = str(obj)
+                    new_dict[key] = obj.get_attributes()
         return (new_dict)
 
 

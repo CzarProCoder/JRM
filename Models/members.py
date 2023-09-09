@@ -64,22 +64,38 @@ class Members(BaseModel, Base):
         self.membership_status = membership_status
         self.loan_eligibility = loan_eligibility
 
+    # def __repr__(self):
+    #     '''
+    #     Returns a string representation of a member
+    #     '''
+    #     full_name = f"{self.first_name} {self.second_name} {self.last_name}"
+    #     dict_obj = {"Member_id": self.id,
+    #                 "Name": full_name,
+    #                 "National_ID": self.national_id,
+    #                 "KRA_Pin": self.kra_pin,
+    #                 "Date_of_Birth": self.dob,
+    #                 "Address": self.address,
+    #                 "Gender": self.gender,
+    #                 "Email": self.email,
+    #                 "Phone": self.phone,
+    #                 "Membership_status": self.membership_status,
+    #                 "loan_eligibility": self.loan_eligibility,
+    #                 "created_at": self.created_at,
+    #                 "Updated_at": self.updated_at}
+    #     return dict_obj
+    
     def __str__(self):
-        '''
-        Returns a string representation of a member
-        '''
         full_name = f"{self.first_name} {self.second_name} {self.last_name}"
-        return (f"""
-                        Member_id: {self.id} \n
-                             Name: {full_name} \n
-                      National_ID: {self.national_id} \n
-                          KRA_Pin: {self.kra_pin} \n
-                    Date_of_Birth: {self.dob} \n
-                          Address: {self.address} \n
-                           Gender: {self.gender} \n
-                            Email: {self.email} \n
-                            Phone: {self.phone} \n
-                Membership_status: {self.membership_status} \n
-                 loan_eligibility: {self.loan_eligibility} \n
-                       created_at: {self.created_at} \n
-                       Updated_at: {self.updated_at} \n""")
+        return (f"""Member_id:{self.id},
+Name:{full_name},
+National_ID:{self.national_id},
+KRA_Pin:{self.kra_pin},
+Date_of_Birth:{self.dob},
+Address:'{self.address}',
+Gender:{self.gender},
+Email:{self.email},
+Phone:{self.phone},
+Membership_status:{self.membership_status},
+loan_eligibility:{self.loan_eligibility},
+created_at:{self.created_at},
+Updated_at:{self.updated_at}""").replace("\n", "")
