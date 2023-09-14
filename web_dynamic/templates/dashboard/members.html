@@ -1,40 +1,384 @@
-{% extends "dashboard/dashboard_base.html" %}
+{% extends "dashboard/dashboard_base.html" %} {% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col md-12">
+      <div class="mt-4 p-3 bg-light border border-primary rounded">
+        <h2>
+          Manage <b>Members </b>
+          <button
+            type="button"
+            class="btn btn-success float-md-end"
+            data-bs-toggle="modal"
+            data-bs-target="#addmember"
+          >
+            Add New Member
+          </button>
+        </h2>
 
-{% block title %}
-JRM SACCO
-{% endblock %}
-
-{% block body %}
-    <h1>JRM Sacco</h1>
-    <h1>Members</h1>
-    <table class="table table-hover table-dark">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% set counter = 1 %}
+        <table class="table table-striped table-sm table-hover">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
             {% for member in members.values() %}
             <tr>
-                <th scope="row">{{ counter }}</th>
-                <td>{{ member.id }}</td>
-                <td>{{ member.first_name }} {{ member.last_name }}</td>
-                <td>{{ member.email }}</td>
-                <td>{{ member.phone }}</td>
+              <td>{{ loop.index }}</td>
+              <td>{{ member.id }}</td>
+              <td>{{ member.first_name }} {{ member.last_name }}</td>
+              <td>{{ member.email }}</td>
+              <td>{{ member.phone }}</td>
+              <td>
+                <a
+                  href=""
+                  class="btn btn-warning btn-xs"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editmember"
+                  >Edit</a
+                >
+                <a
+                  href=""
+                  class="btn btn-danger btn-xs"
+                  onclick="return confirm('Are You Sure To Delete?')"
+                  >Delete</a
+                >
+              </td>
             </tr>
-            {% set counter = counter + 1 %}
+
+            <!-- Modal Edit Member -->
+            <div id="editmember" class="modal fade" role="dialog">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Edit Member</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form action="" method="POST">
+                      <div class="form-group">
+                        <label>First Name:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="first_name"
+                          required="1"
+                        />
+                        <label>Second Name:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="second_name"
+                          required="1"
+                        />
+                        <label>Last Name:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="last_name"
+                          required="1"
+                        />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>National ID:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="national_id"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Member ID:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="member_id"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>KRA Pin:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="kra_pin"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Date Of Birth:</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="dob"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Address:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="Address"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Country:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="Country"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Gender:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="gender"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Joined On:</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="created_at"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Email:</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          name="email"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Phone No:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="phone"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Membership Status:</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="membership_status"
+                          required="1"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Loan Eligibility:</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          name="loan_eligibility"
+                          required="1"
+                        />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <button class="btn btn-primary" type="submit">
+                          Save Changes
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          type="button"
+                          class="btn btn-secondary float-md-end"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             {% endfor %}
-        </tbody>
-      </table>
-    <!-- <ul>
-        {% for member in members.values() %}
-            <li>{{ member.id }}: <b>{{ member.first_name }} {{ member.last_name }}:
-                {{ member.national_id }}: {{ member.dob }} {{ member.email }}</b></li>
-        {% endfor %}
-    </ul> -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal Add New Member -->
+      <div id="addmember" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Member</h4>
+            </div>
+            <div class="modal-body">
+              <form action="{{ url_for('addmember') }}" method="POST">
+                <div class="form-group">
+                  <label>First Name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="first_name"
+                    required="1"
+                  />
+                  <label>Second Name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="second_name"
+                    required="1"
+                  />
+                  <label>Last Name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="last_name"
+                    required="1"
+                  />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label>National ID:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="national_id"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Member ID:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="member_id"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>KRA Pin:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="kra_pin"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Date Of Birth:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    name="dob"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Address:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="Address"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Country:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="Country"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Gender:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="gender"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Joined On:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    name="created_at"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Email:</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Phone No:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="phone"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Membership Status:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="membership_status"
+                    required="1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Loan Eligibility:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="loan_eligibility"
+                    required="1"
+                  />
+                </div>
+                <br />
+                <div class="form-group">
+                  <button class="btn btn-primary" type="submit">
+                    Add Member
+                  </button>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-secondary float-md-end"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
