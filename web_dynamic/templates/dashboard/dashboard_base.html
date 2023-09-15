@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="../static/styles/style.css" />
   </head>
   <body>
-    <!-- {% include 'dashboard/header.html' %} -->
-    {% include 'dashboard/navigation.html' %} {% block body %} {% endblock %} {%
-    include 'dashboard/footer.html' %}
+    {% include 'dashboard/navigation.html' %}
+    <div class="main">
+      {% include 'dashboard/topbar.html' %} {% block cardbox %} {% endblock %}
+      {% block body %} {% endblock %} {%include 'dashboard/footer.html' %}
+    </div>
 
     <!-- ==================== js ================= -->
     <script src="../static/scripts/main.js"></script>

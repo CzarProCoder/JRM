@@ -18,7 +18,7 @@ from datetime import datetime
 from models import storage
 from models.members import Members, time
 from models.accounts import Accounts
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, flash, request
 from sqlalchemy.exc import IntegrityError
 import re
 
@@ -50,6 +50,7 @@ def add_obj(obj):
         print(f"Duplicate Entry! {obj_class}.id and unique must not have duplicates")
 
 app = Flask(__name__)
+app.secret_key = 'lyonec_key'
 
 @app.route("/", strict_slashes=False)
 def index():
@@ -61,7 +62,7 @@ def home():
 
 @app.route("/dashboard", strict_slashes=False)
 def dashboard():
-    return render_template('dashboard/dashboard_base.html')
+    return render_template('dashboard/dashboard.html')
 
 @app.route("/dashboard/members", strict_slashes=False)
 def members():
@@ -93,6 +94,8 @@ def addmember():
         loan_eligibility=request.form['loan_eligibility'])
         
         add_obj(new_member)
+
+        flash("Member added successfully")
 
         return redirect(url_for('members'))
     
