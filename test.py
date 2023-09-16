@@ -15,14 +15,14 @@ Julius = Members(id=478573,
                  first_name="Julius",
                  second_name="Kinyua",
                  last_name="Njeri",
-                 national_id="3xxxxx4",
-                 kra_pin="AxxxxyyyyyC",
+                 national_id="39493094",
+                 kra_pin="A046478343C",
                  dob="1994, 6, 25",
                  address="00100 Nairobi, Kenya",
                  gender="M",
                  created_at=None,
-                 email="jyyyyxxxx987@gmail.com",
-                 phone="+25412345677",
+                 email="juliusczar36@gmail.com",
+                 phone="+254703873717",
                  membership_status="Active",
                  loan_eligibility=500000.00)
 
@@ -30,16 +30,31 @@ Ambrose = Members(id=478575,
                   first_name="Ambrose",
                   second_name="Matata",
                   last_name="Pro",
-                  national_id="4xxxxcccc3",
-                  kra_pin="AxxxxyyyyC",
+                  national_id="31377473",
+                  kra_pin="A0382743C",
                   dob="1994, 8, 13",
                   address="00100 Nairobi, Kenya",
                   gender="M",
                   created_at=None,
-                  email="affddccccc76@gmail.com",
-                  phone="+254000000111",
+                  email="ambrose.matata11@gmail.com",
+                  phone="+254794883111",
                   membership_status="Active",
                   loan_eligibility=760050.25)
+
+Mwaura = Members(id=478577,
+                 first_name="Kelvin",
+                 second_name="Mwaura",
+                 last_name="Kevsam",
+                 national_id="37485788",
+                 kra_pin="A4775844C",
+                 dob="1994, 4, 21",
+                 address="00100 Nairobi, Kenya",
+                 gender="M",
+                 created_at=None,
+                 email="Kevsamsolutions@gmail.com",
+                 phone="+25412345677",
+                 membership_status="Active",
+                 loan_eligibility=360050.00)
 
 Julius_ID_Copy = Documents(id = 47563884,
                            doc_type="ID",
@@ -170,6 +185,7 @@ def add_obj(obj):
 
 add_obj(Julius)
 add_obj(Ambrose)
+add_obj(Mwaura)
 
 add_obj(Julius_ID_Copy)
 add_obj(Julius_KRA_Copy)

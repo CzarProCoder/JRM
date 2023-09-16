@@ -56,7 +56,8 @@ class Members(BaseModel, Base):
         self.last_name = last_name
         self.national_id = national_id
         self.kra_pin = kra_pin
-        self.dob = datetime.strptime(dob, date_format).date()
+        self.dob = dob
+        # self.dob = datetime.strptime(dob, date_format).date()
         self.address = address
         self.gender = gender
         self.email = email
