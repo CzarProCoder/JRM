@@ -1,3 +1,5 @@
+JRM PROJECT BY JULIUS KINYUA N.
+EMAIL: juliusczar36@gmail.com
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><u><span style='font-size:24px;font-family:"Times New Roman",serif;color:#2F5496;'>JRM Sacco Management System</span></u></strong></p>
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><em><span style='font-size:16px;line-height:107%;font-family:"Times New Roman",serif;'>Best Enterprise Resource Planning (ERP) System</span></em></strong></p>
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;font-size:11.0pt;font-family:"Calibri",sans-serif;text-align:center;'><strong><em><span style='font-size:16px;line-height:107%;font-family:"Times New Roman",serif;'>For Savings and Credit Cooperative Society (SACCO)</span></em></strong></p>
